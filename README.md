@@ -23,29 +23,28 @@ To get the most out of this course, you should feel comfortable with coding and 
 - Preparing the environment for the course
 - Homework
 
-### Module 2: Workflow Orchestration
+### [Module 2: Workflow Orchestration](./02-workflow-orchestration)
 - Data Lake
 - Workflow orchestration
 - Workflow orchestration with Mage
 - Homework
 
-### Workshop 1: Data Ingestion
+### [Workshop 1: Data Ingestion](./Workshop_1_Data_Ingestion)
 - Reading from APIs
 - Building scalable pipelines
 - Normalizing data
 - Incremental loading
 - Homework
 
-### Module 3: Data Warehouse
+### [Module 3: Data Warehouse](./03-data-warehouse)
 - Data Warehouse
 - BigQuery
 - Partitioning and clustering
 - BigQuery best practices
 - Internals of BigQuery
 - BigQuery Machine Learning
-- Homework
 
-### Module 4: Analytics Engineering
+### [Module 4: Analytics Engineering](./04-analytics-engineering)
 - Basics of analytics engineering
 - dbt (data build tool)
 - BigQuery and dbt
@@ -54,26 +53,23 @@ To get the most out of this course, you should feel comfortable with coding and 
 - Testing and documenting
 - Deployment to the cloud and locally
 - Visualizing the data with Google Data Studio and Metabase
-- Homework
 
-### Module 5: Batch Processing
+### [Module 5: Batch Processing](./05-batch)
 - Batch processing
 - What is Spark
 - Spark Dataframes
 - Spark SQL
 - Internals: GroupBy and joins
-- Homework
 
-### Module 6: Streaming
+### [Module 6: Streaming](./06-streaming)
 - Introduction to Kafka
 - Schemas (Avro)
 - Kafka Streams
 - Kafka Connect and KSQL
-- Homework
 
-### Workshop 2: Stream Processing with SQL
+### [Workshop 2: Stream Processing with SQL](./Workshop_2_Stream_Processing_with_SQL)
 
-## Project
+## [Project](./projects)
 - Putting everything we learned into practice
 - Week 1 and 2: working on your project
 - Week 3: reviewing your peers
