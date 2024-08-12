@@ -1,7 +1,3 @@
-Here's a README file for the base directory of your Data Engineering Zoomcamp project:
-
----
-
 # Data Engineering Zoomcamp
 
 This repository serves as a companion guide for the [Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) offered by DataTalksClub, a free online course delving into the practical applications of Data Engineering. Here, you'll find comprehensive materials and exercises to follow along with the course and gain hands-on experience.
