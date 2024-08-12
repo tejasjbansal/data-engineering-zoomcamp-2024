@@ -6,6 +6,10 @@ This repository serves as a companion guide for the [Data Engineering Zoomcamp](
 
 To get the most out of this course, you should feel comfortable with coding and command line and know the basics of SQL. Prior experience with Python will be helpful, but you can pick up Python relatively fast if you have experience with other programming languages.
 
+## Course Project Architecture
+
+![Project Architecture](https://github.com/user-attachments/assets/f9e05880-278a-4241-9f40-3098874d8fe4)
+
 **Prior experience with data engineering is not required.**
 
 ## Syllabus
