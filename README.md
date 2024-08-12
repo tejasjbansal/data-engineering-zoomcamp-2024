@@ -14,7 +14,7 @@ To get the most out of this course, you should feel comfortable with coding and 
 
 ## Syllabus
 
-### Module 1: Containerization and Infrastructure as Code
+### [Module 1: Containerization and Infrastructure as Code](./01-docker-terraform)
 - Course overview
 - Introduction to GCP
 - Docker and docker-compose
