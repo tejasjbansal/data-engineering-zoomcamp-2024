@@ -281,7 +281,7 @@ _[Video source](https://www.youtube.com/watch?v=Erf1-d1nyMY&list=PL3MmuxUbc_hJed
 
 Install instructions for Kafka can be found in [the official website](https://kafka.apache.org/quickstart#quickstart_kafkaconnect).
 
-Due to the complexity of managing a manual Kafka install, a docker-compose script is provided [in this link](../6_streaming/docker-compose.yml). The Docker images are provided by [Confluent](https://www.confluent.io/), a Kafka tool vendor. The script defines the following services:
+Due to the complexity of managing a manual Kafka install, a docker-compose script is provided [in this link](../06-streaming/docker-compose.yml). The Docker images are provided by [Confluent](https://www.confluent.io/), a Kafka tool vendor. The script defines the following services:
 
 * **[`zookeeper`](https://zookeeper.apache.org/)**: a centralized service for maintaining configuration info. Kafka uses it for maintaining metadata knowledge such as topic partitions, etc.
     * Zookeeper is being phased out as a dependency, but for easier deployment we will use it in the lesson.
@@ -301,11 +301,11 @@ _[Back to the top](#)_
 We will now create a demo of a Kafka system with a producer and a consumer and see how messages are created and consumed.
 
 1. In the Control Center GUI, select the `Cluster 1` cluster and in the topic section, create a new `demo_1` topic with 2 partitions and default settings.
-1. Copy the [`requirements.txt`](../6_streaming/requirements.txt) to your work folder and [create a Python virtual environment](https://gist.github.com/ziritrion/8024025672ea92b8bdeb320d6015aa0d). You will need to run all the following scripts in this environment.
-1. Copy the [`producer.py`](../6_streaming/producer.py) script to your work folder. Edit it and make sure that the line `producer.send('demo_1', value=data)` (it should be line 12 on an unmodified file) is set to `demo_1`. Run the script and leave it running in a terminal.
+1. Copy the [`requirements.txt`](../06-streaming/requirements.txt) to your work folder and [create a Python virtual environment](https://gist.github.com/ziritrion/8024025672ea92b8bdeb320d6015aa0d). You will need to run all the following scripts in this environment.
+1. Copy the [`producer.py`](../06-streaming/producer.py) script to your work folder. Edit it and make sure that the line `producer.send('demo_1', value=data)` (it should be line 12 on an unmodified file) is set to `demo_1`. Run the script and leave it running in a terminal.
     * This script registers to Kafka as a producer and sends a message each second until it sends 1000 messages.
     * With the script running, you should be able to see the messages in the Messages tab of the `demo_1` topic window in Control Center.
-1. Copy the [`consumer.py`](../6_streaming/consumer.py) script to your work folder. Edit it and make sure that the first argument of `consumer = KafkaConsumer()` is `'demo_1',` (in an unmodified script this should be in line 6) and the `group_id` value should be `'consumer.group.id.demo.1'`
+1. Copy the [`consumer.py`](../06-streaming/consumer.py) script to your work folder. Edit it and make sure that the first argument of `consumer = KafkaConsumer()` is `'demo_1',` (in an unmodified script this should be in line 6) and the `group_id` value should be `'consumer.group.id.demo.1'`
     * This script registers to Kafka as a consumer and continuously reads messages from the topic, one message each second.
 1. Run the `consumer.py` script on a separate terminal from `producer.py`. You should see the consumer read the messages in sequential order. Kill the consumer and run it again to see how itaa resumes from the last read message.
 1. With the `consumer.py` running, modify the script and change `group_id` to `'consumer.group.id.demo.2'`. Run the script on a separate terminal; you should now see how it consumes all messages starting from the beginning because `auto_offset_reset` is set to `earliest` and we now have 2 separate consumer groups accessing the same topic.
@@ -460,13 +460,13 @@ We will now create a demo in which we will see a schema registry and Avro in act
 
 ### `docker-compose.yml`
 
-In the [docker compose file we used in the previous demo](../6_streaming/docker-compose.yml) there's a `schema-registry` service that uses [Confluent's Schema Registry](https://docs.confluent.io/platform/current/schema-registry/). The docker container will run locally and bind to port 8081, which we will make use of in the following scripts.
+In the [docker compose file we used in the previous demo](../06-streaming/docker-compose.yml) there's a `schema-registry` service that uses [Confluent's Schema Registry](https://docs.confluent.io/platform/current/schema-registry/). The docker container will run locally and bind to port 8081, which we will make use of in the following scripts.
 
 ### Defining schemas
 
 Schemas are defined using JSON syntax and saved to `asvc` files. We will define 2 schemas: a schema for the ***message key*** and another for the ***message value***.
 
-* The ***message key schema*** contains basic info that allows us to identify the message. You can download the complete `taxi_ride_key.avsc` file [from this link](../6_streaming/avro_example/taxi_ride_key.avsc).
+* The ***message key schema*** contains basic info that allows us to identify the message. You can download the complete `taxi_ride_key.avsc` file [from this link](../06-streaming/avro_example/taxi_ride_key.avsc).
     ```json
     {
         "namespace": "com.datatalksclub.taxi",
@@ -480,12 +480,12 @@ Schemas are defined using JSON syntax and saved to `asvc` files. We will define 
         ]
     }
     ```
-* The ***message value schema*** defines the schema of the actual info we will be sending. For this example, we have created a `taxi_ride_value.avsc` file that you can download [from this link](../6_streaming/avro_example/taxi_ride_value.avsc) which contains a few primitive data types.
-    * This schema is to be used with [the `rides.csv` file](../6_streaming/avro_example/data/rides.csv) which contains a few taxi rides already prepared for the example.
+* The ***message value schema*** defines the schema of the actual info we will be sending. For this example, we have created a `taxi_ride_value.avsc` file that you can download [from this link](../06-streaming/avro_example/taxi_ride_value.avsc) which contains a few primitive data types.
+    * This schema is to be used with [the `rides.csv` file](../06-streaming/avro_example/data/rides.csv) which contains a few taxi rides already prepared for the example.
 
 ### Producer
 
-We will create a [`producer.py` file](../6_streaming/avro_example/producer.py) that will do the following:
+We will create a [`producer.py` file](../06-streaming/avro_example/producer.py) that will do the following:
 * Import the `avro` and `avroProducer` libraries from `confluent_kafka`.
 * Define a `load_avro_schema_from_file()` function which reads the 2 schema files we defined above.
 * In the main `send_record()` method:
@@ -499,7 +499,7 @@ We will create a [`producer.py` file](../6_streaming/avro_example/producer.py) t
 
 ### Consumer
 
-We will also create a [`consumer.py` file](../6_streaming/avro_example/consumer.py) that will do the following:
+We will also create a [`consumer.py` file](../06-streaming/avro_example/consumer.py) that will do the following:
 * Imports `AvroConsumer` from `confluent_kafka.avro`.
 * Defines the necessary consumer settings (kafka and registry URLs, consumer group id and auto offset reset policy).
 * Instantiates an `AvroConsumer` object and subscribes to the `datatalkclub.yellow_taxi_rides` topic.
@@ -564,24 +564,24 @@ _[Back to the top](#)_
 
 The native language to develop for Kafka Streams is Scala; we will use the [Faust library](https://faust.readthedocs.io/en/latest/) instead because it allows us to create Streams apps with Python.
 
-1. `producer_tax_json.py` ([link](../6_streaming/streams/producer_tax_json.py)) will be the main producer.
+1. `producer_tax_json.py` ([link](../06-streaming/streams/producer_tax_json.py)) will be the main producer.
     * Instead of sending Avro messages, we will send simple JSON messages for simplicity.
     * We instantiate a `KafkaProducer` object, read from the CSV file used in the previous block, create a key with `numberId` matching the row of the CSV file and the value is a JSON object with the values in the row.
     * We post to the `datatalkclub.yellow_taxi_ride.json` topic.
         * You will need to create this topic in the Control Center.
     * One message is sent per second, as in the previous examples.
     
-1. `stream.py` ([link](../6_streaming/streams/stream.py)) is the actual Faust application.
+1. `stream.py` ([link](../06-streaming/streams/stream.py)) is the actual Faust application.
     * We first instantiate a `faust.App` object which declares the _app id_ (like the consumer group id) and the Kafka broker which we will talk to.
     * We also define a topic, which is `datatalkclub.yellow_taxi_ride.json`.
-        * The `value_types` param defines the datatype of the message value; we've created a custom `TaxiRide` class for it which is available [in this `taxi_ride.py` file](../6_streaming/streams/taxi_rides.py)
+        * The `value_types` param defines the datatype of the message value; we've created a custom `TaxiRide` class for it which is available [in this `taxi_ride.py` file](../06-streaming/streams/taxi_rides.py)
     * We create a _stream processor_ called `start_reading()` using the `@app.agent()` decorator.
         * In Streams, and ***agent*** is a group of ***actors*** processing a stream, and an _actor_ is an individual instance.
         * We use `@app.agent(topic)` to point out that the stream processor will deal with our `topic` object.
         * `start_reading(records)` receives a stream named `records` and prints every message in the stream as it's received.
         * Finally, we call the `main()` method of our `faust.App` object as an entry point.
     * You will need to run this script as `python stream.py worker` .
-1. `stream_count_vendor_trips.py` ([link](../6_streaming/streams/stream_count_vendor_trips.py)) is another Faust app that showcases creating a state from a stream:
+1. `stream_count_vendor_trips.py` ([link](../06-streaming/streams/stream_count_vendor_trips.py)) is another Faust app that showcases creating a state from a stream:
     * Like the previous app, we instantiate an `app` object and a topic.
     * We also create a KTable with `app.Table()` in order to keep a state:
         * The `default=int` param ensures that whenever we access a missing key in the table, the value for that key will be initialized as such (since `int()` returns 0, the value will be initialized to 0).
@@ -589,7 +589,7 @@ The native language to develop for Kafka Streams is Scala; we will use the [Faus
         * We use `group_by()` to _repartition the stream_ by `TaxiRide.vendorId`, so that every unique `vendorId` is delivered to the same agent instance.
         * We write to the KTable the number of messages belonging to each `vendorId`, increasing the count by one each time we read a message. By using `group_by` we make sure that the KTable that each agent handles contains the correct message count per each `vendorId`.
     * You will need to run this script as `python stream_count_vendor_trips.py worker` .
-* `branch_price.py` ([link](../6_streaming/streams/branch_price.py)) is a Faust app that showcases ***branching***:
+* `branch_price.py` ([link](../06-streaming/streams/branch_price.py)) is a Faust app that showcases ***branching***:
     * We start by instancing an app object and a _source_ topic which is, as before, `datatalkclub.yellow_taxi_ride.json`.
     * We also create 2 additional new topics: `datatalks.yellow_taxi_rides.high_amount` and `datatalks.yellow_taxi_rides.low_amount`
     * In our stream processor, we check the `total_amount` value of each message and ***branch***:
@@ -645,7 +645,7 @@ _[Back to the top](#)_
 
 Let's now see an example of windowing in action.
 
-* `windowing.py` ([link](../6_streaming/streams/windowing.py)) is a very similar app to `stream_count_vendor_trips.py` but defines a ***tumbling window*** for the table.
+* `windowing.py` ([link](../06-streaming/streams/windowing.py)) is a very similar app to `stream_count_vendor_trips.py` but defines a ***tumbling window*** for the table.
     * The window will be of 1 minute in length.
     * When we run the app and check the window topic in Control Center, we will see that each key (one per window) has an attached time interval for the window it belongs to and the value will be the key for each received message during the window.
     * You will need to run this script as `python windowing.py worker` .
