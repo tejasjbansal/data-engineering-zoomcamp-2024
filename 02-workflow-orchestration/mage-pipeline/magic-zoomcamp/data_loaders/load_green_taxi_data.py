@@ -35,14 +35,14 @@ def load_data_from_api(*args, **kwargs):
 
     # CREATE A LIST OF DATETIME COLUMNS.
     # The list will be passed to the read_csv function and pandas will parse the columns as dates with the appropriate time stamps.  
-    parse_dates = ['lpep_pickup_datetime', 'lpep_dropoff_datetime']  
+    parse_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']  
 
 
     # Define the URL template
-    url_template = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2020-{}.csv.gz'
+    url_template = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-{}.csv.gz'
 
     # Define the months to read data for
-    months = [10, 11, 12]
+    months = [01,02,03,04,05,06,07,08,09,10, 11, 12]
 
     # Initialize an empty list to store the dataframes
     dfs = []
